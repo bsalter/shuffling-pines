@@ -1,14 +1,11 @@
 {
   "name": "shuffling-pines",
   "version": "0.0.1",
-  "authors": [
-    ""
-  ],
   "description": "",
   "main": "app.js",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/CSCI-E32/shuffling-pines",
   "private": true,
   "ignore": [
     "**/.*",
