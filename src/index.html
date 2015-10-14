@@ -25,7 +25,7 @@
           <div role="tabpanel" class="tab-pane active" id="form">
             <div>
 
-              <form class="col-md-6 well">
+              <form class="col-md-6 well" ng-controller="FormController" ng-init="transportation='pickup'">
                 <div class="form-group">
                   <label for="guest-name">Guest Name</label>
                   <input type="text" class="form-control" id="guest-name" placeholder="">
@@ -36,17 +36,17 @@
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" name="pickup-dropoff" id="pickup" value="pickup" checked>
+                    <input type="radio" ng-model="transportation" name="pickup-dropoff" id="pickup" value="pickup">
                     Pick-up
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" name="pickup-dropoff" id="dropoff" value="dropoff">
+                    <input type="radio" ng-model="transportation" name="pickup-dropoff" id="dropoff" value="dropoff">
                     Drop-off
                   </label>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-show="transportation === 'pickup'">
                   <label for="location">Location</label>
                   <textarea class="form-control" id="location"></textarea>
                 </div>
