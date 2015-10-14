@@ -33,10 +33,10 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <!-- Tab pane 1 -->
-          <div role="tabpanel" class="tab-pane active" id="form">
+          <div role="tabpanel" class="tab-pane active" id="form" ng-controller="FormController">
             <div>
 
-              <form class="col-md-6 well" ng-controller="FormController" ng-init="transportation='pickup'" ng-submit="submit()">
+              <form class="col-md-6 well" ng-init="transportation='pickup'" ng-submit="submit()">
                 <div class="form-group">
                   <label for="guest-name">Guest Name</label>
                   <input type="text" class="form-control" ng-model="name" id="guest-name" placeholder="">
@@ -65,22 +65,22 @@
               </form>
 
               <!-- bound display -->
-              <div ng-show="false" class="col-md-6 well">
-                <div ng-show="false" class="form-group">
+              <div class="col-md-6 well">
+                <div ng-show="name !== null" class="form-group">
                   <label>Name: </label>
-                  John Harvard
+                  {{name}}
                 </div>
-                <div ng-show="false" class="form-group">
+                <div ng-show="transition_date !== null" class="form-group">
                   <label>Transition Date: </label>
-                  today!
+                  {{transition_date | date:'MM/dd/yyyy'}}
                 </div>
-                <div ng-show="false" class="form-group">
+                <div ng-show="transportation !== null" class="form-group">
                   <label>Status: </label>
-                  drop-off
+                  {{transportation}}
                 </div>
-                <div ng-show="false" class="form-group">
+                <div ng-show="location !== null" class="form-group">
                   <label>Location: </label>
-                  right here
+                  {{location}}
                 </div>
               </div>
 
