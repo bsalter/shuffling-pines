@@ -13,11 +13,14 @@ app.controller('FormController', ['$scope','Storage',function($scope, storageSer
         $scope.transportation = "pickup";
         $scope.location = "";
         storageService.addPerson(person);
+        $scope.$emit('tabChanged', 2);
     };
 }]);
 
-app.controller('TabController', [function() {
-
+app.controller('TabController', ['$scope', function($scope) {
+    $scope.$on('tabChanged', function(event, tab) {
+        $scope.tab = tab
+    });
 }]);
 
 app.factory('Storage', function() {
