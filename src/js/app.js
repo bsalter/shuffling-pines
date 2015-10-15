@@ -1,6 +1,18 @@
 (function() {
     var app = angular.module('shuffling', []);
-    app.controller('FormController', ['Storage', function (storageService) {
+
+    function TabController() {
+        var vm = this;
+        vm.tab = 1;
+        vm.setTab = function(tabnum) {
+            vm.tab = tabnum;
+        };
+        vm.checkTab = function(tabnum) {
+            return vm.tab === tabnum;
+        };
+    }
+
+    function FormController(storageService) {
         var vm = this;
         vm.transportation = 'pickup';
         vm.submit = function () {
@@ -28,21 +40,9 @@
         vm.checkLocation = function(location) {
             return vm.location === location;
         }
-    }]);
+    }
 
-    app.controller('TabController', [function () {
-        var vm = this;
-        vm.tab = 1;
-        vm.setTab = function(tabnum) {
-            vm.tab = tabnum;
-        };
-        vm.checkTab = function(tabnum) {
-            return vm.tab === tabnum;
-        };
-
-    }]);
-
-    app.factory('Storage', function () {
+    function Storage() {
         var patients = JSON.parse(sessionStorage.getItem('patients')) || [];
         console.log(patients);
         function addPatient(patient) {
@@ -53,5 +53,8 @@
         return {
             addPatient: addPatient
         };
-    });
+    }
+    app.controller('FormController', ['Storage', FormController]);
+    app.controller('TabController', [TabController]);
+    app.factory('Storage', Storage);
 })();
