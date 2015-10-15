@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="shuffling">
+<html ng-app="shuffling" ng-cloak>
 
   <head>
     <meta charset="utf-8" />
@@ -20,82 +20,79 @@
     </script>
   </head>
 
-  <body ng-controller="TabController">
+  <body ng-controller="TabController as vm">
     <h1>Shuffling Pines</h1>
     <div class="row">
       <div class="col-md-12">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist" ng-init="tab = 1">
-          <li role="presentation" ng-click="tab = 1" ng-class="{'active':tab === 1}"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">Form</a></li>
-          <li role="presentation" ng-click="tab = 2" ng-class="{'active':tab === 2}"><a href="#guests" aria-controls="guests" role="tab" data-toggle="tab">Guests</a></li>
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" ng-click="vm.setTab(1)" ng-class="{'active':vm.checkTab(1)}"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">Form</a></li>
+          <li role="presentation" ng-click="vm.setTab(2)" ng-class="{'active':vm.checkTab(2)}"><a href="#guests" aria-controls="guests" role="tab" data-toggle="tab">Guests</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
           <!-- Tab pane 1 -->
-          <div role="tabpanel" class="tab-pane active" id="form" ng-controller="FormController" ng-show="tab === 1">
-            <div>
-
-              <form class="col-md-6 well" ng-init="transportation='pickup'" ng-submit="submit()">
+          <div role="tabpanel" class="tab-pane active" id="form" ng-show="vm.checkTab(1)">
+            <div ng-controller="FormController as vm">
+              <form name="vm.form" class="col-md-6 well" ng-submit="vm.submit()">
                 <div class="form-group">
                   <label for="guest-name">Guest Name</label>
-                  <input type="text" class="form-control" ng-model="name" id="guest-name" placeholder="">
+                  <input type="text" ng-model="vm.name" class="form-control" id="guest-name" placeholder="">
                 </div>
                 <div class="form-group">
                   <label for="transition-date">Transition Date</label>
-                  <input type="date" class="form-control" ng-model="transition_date" id="transition-date" placeholder="">
+                  <input type="date" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="">
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" ng-model="transportation" name="pickup-dropoff" id="pickup" value="pickup">
+                    <input type="radio" ng-model="vm.transportation" id="pickup" value="pickup">
                     Pick-up
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" ng-model="transportation" name="pickup-dropoff" id="dropoff" value="dropoff">
+                    <input type="radio" ng-model="vm.transportation" id="dropoff" value="dropoff">
                     Drop-off
                   </label>
                 </div>
-                <div class="form-group" ng-show="transportation === 'pickup'">
+                <div class="form-group" ng-show="vm.checkTransportation('pickup')">
                   <label for="location">Location</label>
-                  <textarea class="form-control" ng-model="location" id="location"></textarea>
+                  <textarea class="form-control" ng-model="vm.location" id="location"></textarea>
                 </div>
-                <button type="submit" class="btn">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
               </form>
 
               <!-- bound display -->
               <div class="col-md-6 well">
-                <div ng-show="name !== null" class="form-group">
+                <div ng-hide="vm.checkName(null)" class="form-group">
                   <label>Name: </label>
-                  {{name}}
+                  {{vm.name}}
                 </div>
-                <div ng-show="transition_date !== null" class="form-group">
+                <div ng-hide="vm.checkDate(null)" class="form-group">
                   <label>Transition Date: </label>
-                  {{transition_date | date:'MM/dd/yyyy'}}
+                  {{vm.transition_date | date:'MM/dd/yyyy'}}
                 </div>
-                <div ng-show="transportation !== null" class="form-group">
+                <div ng-hide="vm.checkTransportation(null)" class="form-group">
                   <label>Status: </label>
-                  {{transportation}}
+                  {{vm.transportation}}
                 </div>
-                <div ng-show="location !== null" class="form-group">
+                <div ng-hide="vm.checkLocation(null)" class="form-group">
                   <label>Location: </label>
-                  {{location}}
+                  {{vm.location}}
                 </div>
               </div>
-
             </div>
           </div>
 
           <!-- Tab pane 2 -->
-          <div role="tabpanel" class="tab-pane" id="guests" ng-show="tab === 2">
+          <div role="tabpanel" class="tab-pane" id="guests" ng-show="vm.checkTab(2)">
             <ul class="list-unstyled">
               <li>
 
               </li>
             </ul>
           </div>
-
         </div>
       </div>
     </div>
