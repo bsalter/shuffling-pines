@@ -44,12 +44,11 @@
 
     function PatientListController(storageService) {
         var vm = this;
-        vm.patients = storageService.getPatients();
         vm.getPatients = function() {
-          return vm.patients;
+            return storageService.getPatients();
         };
         vm.checkLocation = function(location) {
-            return (typeof location !== "");
+            return (location !== "");
         };
 
     }
@@ -65,7 +64,7 @@
             console.log(this.patients);
         };
         this.getPatients = function() {
-            return JSON.parse(localStorage.getItem('patients'));
+            return this.patients;
         };
         if(this.patients.length == 0) { // initialize with example data
             console.log("Begin initialization");
