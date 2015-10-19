@@ -86,23 +86,27 @@
           </div>
 
           <!-- Tab pane 2 -->
-          <div ng-show="vm.checkTab(2)">
+          <div ng-show="vm.checkTab(2)" style="margin-bottom:50px;margin-left:20px">
             <div role="tabpanel" class="tab-pane" id="guests" ng-controller="PatientListController as vm">
               <br/>
-              <ul class="list-unstyled" ng-repeat="patient in vm.getPatients()">
-                <li>
-                  <label>Name:</label> {{patient.name}}
-                </li>
-                <li>
-                  <label>Transition Date:</label> {{patient.date | date:'MM/dd/yyyy'}}
-                </li>
-                <li>
-                  <label>Status:</label> {{patient.transportation}}
-                </li>
-                <li ng-show="vm.checkLocation(patient.location)">
-                  <label>Pickup Location:</label> {{patient.location}}
-                </li>
-              </ul>
+              <form name="vm.form" ng-submit="vm.submit()">
+                <ul class="list-unstyled well" ng-repeat="patient in vm.getPatients()">
+                  <li>
+                    <label>Name:</label> {{patient.name}}
+                  </li>
+                  <li>
+                    <label>Transition Date:</label> {{patient.date | date:'MM/dd/yyyy'}}
+                  </li>
+                  <li>
+                    <label>Status:</label> {{patient.transportation}}
+                  </li>
+                  <li ng-show="vm.checkLocation(patient.location)">
+                    <label>Pickup Location:</label> {{patient.location}}
+                  </li>
+                </ul>
+                <br/>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
             </div>
           </div>
         </div>
