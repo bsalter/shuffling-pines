@@ -14,7 +14,7 @@
 
     function FormController(storageService) {
         var vm = this;
-        vm.transportation = 'pickup';
+        vm.transportation = 'pick up';
         vm.submit = function () {
             var patient_data = {
                 "name": vm.name,
@@ -24,7 +24,7 @@
             };
             vm.name = "";
             vm.transition_date = "";
-            vm.transportation = "pickup";
+            vm.transportation = "pick up";
             vm.location = "";
             storageService.addPatient(patient_data);
         };
@@ -50,7 +50,13 @@
         vm.checkLocation = function(location) {
             return (location !== "");
         };
-
+        vm.getOptions = function(current_transportation) {
+            if(current_transportation == "pick up" || current_transportation == "drop off") {
+                return [current_transportation,"arrived"];
+            } else {
+                return ["arrived","pick up"];
+            }
+        }
     }
 
     function Storage() {
@@ -71,21 +77,21 @@
             var data = {
                 "name":"Frank",
                 "date":"02/10/2015",
-                "transportation":"dropoff",
+                "transportation":"drop off",
                 "location":""
             };
             this.addPatient(data);
             data = {
                 "name":"Samantha",
                 "date":"10/15/2015",
-                "transportation":"pickup",
+                "transportation":"pick up",
                 "location":"100 Main St., Cambridge, MA 02140"
             };
             this.addPatient(data);
             data = {
                 "name":"Howard",
                 "date":"09/01/2014",
-                "transportation":"dropoff",
+                "transportation":"drop off",
                 "location":""
             };
             this.addPatient(data);

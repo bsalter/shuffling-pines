@@ -46,13 +46,13 @@
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" ng-model="vm.transportation" id="pickup" value="pickup">
+                    <input type="radio" ng-model="vm.transportation" id="pickup" value="pick up">
                     Pick-up
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" ng-model="vm.transportation" id="dropoff" value="dropoff">
+                    <input type="radio" ng-model="vm.transportation" id="dropoff" value="drop off">
                     Drop-off
                   </label>
                 </div>
@@ -98,7 +98,8 @@
                     <label>Transition Date:</label> {{patient.date | date:'MM/dd/yyyy'}}
                   </li>
                   <li>
-                    <label>Status:</label> {{patient.transportation}}
+                    <label>Status:</label> <select ng-model="patient.transportation"
+                                                   ng-options="value for value in vm.getOptions(patient.transportation)"></select>
                   </li>
                   <li ng-show="vm.checkLocation(patient.location)">
                     <label>Pickup Location:</label> {{patient.location}}
