@@ -38,11 +38,11 @@
               <form name="vm.form" class="col-md-6 well" ng-submit="vm.submit()">
                 <div class="form-group">
                   <label for="guest-name">Guest Name</label>
-                  <input type="text" ng-model="vm.name" class="form-control" id="guest-name" placeholder="">
+                  <input type="text" ng-model="vm.name" class="form-control" id="guest-name" placeholder="Enter Guest Name">
                 </div>
                 <div class="form-group">
                   <label for="transition-date">Transition Date</label>
-                  <input type="date" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="">
+                  <input type="date" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="Enter Transition Date">
                 </div>
                 <div class="radio">
                   <label>
@@ -56,9 +56,9 @@
                     Drop-off
                   </label>
                 </div>
-                <div class="form-group" ng-show="vm.checkTransportation('pickup')">
+                <div class="form-group" ng-show="vm.checkTransportation('pick up')">
                   <label for="location">Location</label>
-                  <textarea class="form-control" ng-model="vm.location" id="location"></textarea>
+                  <textarea class="form-control" ng-model="vm.location" id="location" placeholder="Enter Pick-up Location"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
@@ -90,21 +90,25 @@
             <div role="tabpanel" class="tab-pane" id="guests" ng-controller="PatientListController as vm">
               <br/>
               <form name="vm.form" ng-submit="vm.submit()">
-                <ul class="list-unstyled well" ng-repeat="patient in vm.getPatients()">
-                  <li>
-                    <label>Name:</label> {{patient.name}}
-                  </li>
-                  <li>
-                    <label>Transition Date:</label> {{patient.date | date:'MM/dd/yyyy'}}
-                  </li>
-                  <li>
-                    <label>Status:</label> <select ng-model="patient.transportation"
+                <div ng-repeat="patient in vm.getPatients()" class="well">
+                  <div class="form-group">
+                    <label for="tab2-guest-name">Guest Name</label>
+                    <input type="text" ng-model="patient.name" class="form-control" id="tab2-guest-name" placeholder="Enter Guest Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="tab2-transition-date">Transition Date</label><br/>
+                    Current Transition Date: {{patient.date | date:'MM/dd/yyyy'}}
+                    <input type="date" class="form-control" ng-model="vm.date" id="tab2-transition-date" placeholder="Enter New Transition Date">
+                  </div>
+                  <div class="form-group">
+                    <label for="tab2-status">Status:</label> <select id="tab2-status" ng-model="patient.transportation"
                                                    ng-options="value for value in vm.getOptions(patient.transportation)"></select>
-                  </li>
-                  <li ng-show="vm.checkLocation(patient.location)">
-                    <label>Pickup Location:</label> {{patient.location}}
-                  </li>
-                </ul>
+                  </div>
+                    <div ng-show="vm.checkLocation(patient.transportation)">
+                      <label for="tab2-location">Location</label>
+                      <textarea class="form-control" ng-model="patient.location" id="tab2-location"></textarea>
+                    </div>
+                  </div>
                 <br/>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

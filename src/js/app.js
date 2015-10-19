@@ -47,8 +47,8 @@
         vm.getPatients = function() {
             return storageService.getPatients();
         };
-        vm.checkLocation = function(location) {
-            return (location !== "");
+        vm.checkLocation = function(transportation) {
+            return (transportation !== "drop off");
         };
         vm.getOptions = function(current_transportation) {
             if(current_transportation == "pick up" || current_transportation == "drop off") {
@@ -76,21 +76,21 @@
             console.log("Begin initialization");
             var data = {
                 "name":"Frank",
-                "date":"02/10/2015",
+                "date":new Date("2014-12-31T05:00:00.000Z"),
                 "transportation":"drop off",
                 "location":""
             };
             this.addPatient(data);
             data = {
                 "name":"Samantha",
-                "date":"10/15/2015",
+                "date":new Date("2015-10-15T05:00:00.000Z"),
                 "transportation":"pick up",
                 "location":"100 Main St., Cambridge, MA 02140"
             };
             this.addPatient(data);
             data = {
                 "name":"Howard",
-                "date":"09/01/2014",
+                "date":new Date("2015-02-14T05:00:00.000Z"),
                 "transportation":"drop off",
                 "location":""
             };
