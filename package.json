@@ -22,5 +22,8 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "phantomjs": "^1.9.18"
+  },
+  "dependencies": {
+    "angular-mocks": "^1.4.7"
   }
 }

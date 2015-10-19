@@ -78,7 +78,7 @@
                   {{vm.transportation}}
                 </div>
                 <div ng-hide="vm.checkLocation(null)" class="form-group">
-                  <label>Location: </label>
+                  <label>Pickup Location: </label>
                   {{vm.location}}
                 </div>
               </div>
@@ -86,12 +86,24 @@
           </div>
 
           <!-- Tab pane 2 -->
-          <div role="tabpanel" class="tab-pane" id="guests" ng-show="vm.checkTab(2)">
-            <ul class="list-unstyled">
-              <li>
-
-              </li>
-            </ul>
+          <div ng-show="vm.checkTab(2)">
+            <div role="tabpanel" class="tab-pane" id="guests" ng-controller="PatientListController as vm">
+              <br/>
+              <ul class="list-unstyled" ng-repeat="patient in vm.getPatients()">
+                <li>
+                  <label>Name:</label> {{patient.name}}
+                </li>
+                <li>
+                  <label>Transition Date:</label> {{patient.date}}
+                </li>
+                <li>
+                  <label>Status:</label> {{patient.transportation}}
+                </li>
+                <li ng-show="vm.checkLocation(patient.location)">
+                  <label>Pickup Location:</label> {{patient.location}}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
