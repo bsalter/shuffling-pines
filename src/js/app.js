@@ -58,7 +58,7 @@
         console.log(this.patients);
         this.addPatient = function(patient) {
             this.patients.push(patient);
-            localStorage.setItem('patients',JSON.stringify(this.patients));
+            localStorage.setItem('patients',angular.toJson(this.patients));
             // make sure we stored it correctly
             this.patients = JSON.parse(localStorage.getItem('patients'));
             console.log(this.patients);
