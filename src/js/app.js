@@ -48,7 +48,7 @@
             return storageService.getPatients();
         };
         vm.checkLocation = function(transportation) {
-            return (transportation !== "drop off");
+            return (transportation === "pick up");
         };
         vm.getOptions = function(current_transportation) {
             if(current_transportation == "pick up" || current_transportation == "drop off") {

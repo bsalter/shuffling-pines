@@ -89,8 +89,8 @@
           <div ng-show="vm.checkTab(2)" style="margin-bottom:50px;margin-left:20px">
             <div role="tabpanel" class="tab-pane" id="guests" ng-controller="PatientListController as vm">
               <br/>
-              <form name="vm.form" ng-submit="vm.submit()">
-                <div ng-repeat="patient in vm.getPatients()" class="well">
+              <div ng-repeat="patient in vm.getPatients()" class="well">
+                <form name="vm.form" ng-submit="vm.submit()">
                   <div class="form-group">
                     <label for="tab2-guest-name">Guest Name</label>
                     <input type="text" ng-model="patient.name" class="form-control" id="tab2-guest-name" placeholder="Enter Guest Name">
@@ -104,14 +104,14 @@
                     <label for="tab2-status">Status:</label> <select id="tab2-status" ng-model="patient.transportation"
                                                    ng-options="value for value in vm.getOptions(patient.transportation)"></select>
                   </div>
-                    <div ng-show="vm.checkLocation(patient.transportation)">
-                      <label for="tab2-location">Location</label>
-                      <textarea class="form-control" ng-model="patient.location" id="tab2-location"></textarea>
-                    </div>
+                  <div class="form-group" ng-show="vm.checkLocation(patient.transportation)">
+                    <label for="tab2-location">Location</label>
+                    <textarea class="form-control" ng-model="patient.location" id="tab2-location" placeholder="Enter Pick-up Location"></textarea>
                   </div>
-                <br/>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+                  <button type="submit" class="btn btn-primary">Submit Changes</button>
+                  <button id="delete" class="btn btn-danger" ng-click="vm.delete(patient)">Delete</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
