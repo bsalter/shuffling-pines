@@ -15,12 +15,15 @@
     function FormController(storageService) {
         var vm = this;
         vm.transportation = 'pick up';
+        var patients = storageService.getPatients();
+        var patients_length = patients.length;
         vm.submit = function () {
             var patient_data = {
                 "name": vm.name,
                 "date": vm.transition_date,
                 "transportation": vm.transportation,
-                "location": vm.location || ""
+                "location": vm.location || "",
+                "id": patients_length + 1
             };
             vm.name = "";
             vm.transition_date = "";
@@ -44,8 +47,13 @@
 
     function PatientListController(storageService) {
         var vm = this;
+        var patients = storageService.getPatients();
+        // Angular's date input requires a Date object
+        angular.forEach(patients, function(patient, key) {
+            patients[key].date = new Date(patient.date);
+        });
         vm.getPatients = function() {
-            return storageService.getPatients();
+            return patients;
         };
         vm.checkLocation = function(transportation) {
             return (transportation === "pick up");
@@ -56,6 +64,9 @@
             } else {
                 return ["arrived","pick up"];
             }
+        };
+        vm.changeField = function(fieldname, value, id) {
+            storageService.update(fieldname, value, id)
         }
     }
 
@@ -72,27 +83,43 @@
         this.getPatients = function() {
             return this.patients;
         };
+        this.update = function(fieldname, value, id) {
+            var records = JSON.parse(localStorage.getItem('patients'));
+            angular.forEach(records, function(record, key) {
+                if(record.id == id) {
+                    records[key][fieldname] = value;
+                }
+            });
+            localStorage.setItem('patients',angular.toJson(records));
+            console.log(JSON.parse(localStorage.getItem('patients')));
+        };
+        this.delete = function(id) {
+
+        };
         if(this.patients.length == 0) { // initialize with example data
             console.log("Begin initialization");
             var data = {
                 "name":"Frank",
                 "date":new Date("2014-12-31T05:00:00.000Z"),
                 "transportation":"drop off",
-                "location":""
+                "location":"",
+                "id":"1"
             };
             this.addPatient(data);
             data = {
                 "name":"Samantha",
                 "date":new Date("2015-10-15T05:00:00.000Z"),
                 "transportation":"pick up",
-                "location":"100 Main St., Cambridge, MA 02140"
+                "location":"100 Main St., Cambridge, MA 02140",
+                "id":"2"
             };
             this.addPatient(data);
             data = {
                 "name":"Howard",
                 "date":new Date("2015-02-14T05:00:00.000Z"),
                 "transportation":"drop off",
-                "location":""
+                "location":"",
+                "id":"3"
             };
             this.addPatient(data);
         }

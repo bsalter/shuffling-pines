@@ -89,28 +89,30 @@
           <div ng-show="vm.checkTab(2)" style="margin-bottom:50px;margin-left:20px">
             <div role="tabpanel" class="tab-pane" id="guests" ng-controller="PatientListController as vm">
               <br/>
+              <h6>All edits on this page automatically save</h6>
               <div ng-repeat="patient in vm.getPatients()" class="well">
-                <form name="vm.form" ng-submit="vm.submit()">
-                  <div class="form-group">
-                    <label for="tab2-guest-name">Guest Name</label>
-                    <input type="text" ng-model="patient.name" class="form-control" id="tab2-guest-name" placeholder="Enter Guest Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="tab2-transition-date">Transition Date</label><br/>
-                    Current Transition Date: {{patient.date | date:'MM/dd/yyyy'}}
-                    <input type="date" class="form-control" ng-model="vm.date" id="tab2-transition-date" placeholder="Enter New Transition Date">
-                  </div>
-                  <div class="form-group">
-                    <label for="tab2-status">Status:</label> <select id="tab2-status" ng-model="patient.transportation"
-                                                   ng-options="value for value in vm.getOptions(patient.transportation)"></select>
-                  </div>
-                  <div class="form-group" ng-show="vm.checkLocation(patient.transportation)">
-                    <label for="tab2-location">Location</label>
-                    <textarea class="form-control" ng-model="patient.location" id="tab2-location" placeholder="Enter Pick-up Location"></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Submit Changes</button>
-                  <button id="delete" class="btn btn-danger" ng-click="vm.delete(patient)">Delete</button>
-                </form>
+                <div class="form-group">
+                  <label for="tab2-guest-name-{{patient.id}}">Guest Name</label>
+                  <input type="text" ng-model="patient.name" ng-model-options="{updateOn: 'blur'}"
+                         ng-change="vm.changeField('name',patient.name, patient.id)" class="form-control"
+                         id="tab2-guest-name-{{patient.id}}" placeholder="Enter Guest Name">
+                </div>
+                <div class="form-group">
+                  <label for="tab2-transition-date-{{patient.id}}">Transition Date</label><br/>
+                  <input type="date" class="form-control" ng-model="patient.date" ng-model-options="{updateOn: 'blur'}"
+                         ng-change="vm.changeField('date',patient.date, patient.id)" id="tab2-transition-date-{{patient.id}}"
+                         placeholder="Enter New Transition Date">
+                </div>
+                <div class="form-group">
+                  <label for="tab2-status-{{patient.id}}">Status:</label> <select id="tab2-status-{{patient.id}}" ng-model="patient.transportation"
+                                                 ng-options="value for value in vm.getOptions(patient.transportation)"></select>
+                </div>
+                <div class="form-group" ng-show="vm.checkLocation(patient.transportation)">
+                  <label for="tab2-location-{{patient.id}}">Location</label>
+                  <textarea class="form-control" ng-model="patient.location" id="tab2-location-{{patient.id}}"
+                            placeholder="Enter Pick-up Location"></textarea>
+                </div>
+                <button id="delete" class="btn btn-danger" ng-click="vm.delete(patient)">Delete</button>
               </div>
             </div>
           </div>
