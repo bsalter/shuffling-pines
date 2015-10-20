@@ -67,6 +67,19 @@
         };
         vm.changeField = function(fieldname, value, id) {
             storageService.update(fieldname, value, id)
+        };
+        vm.delete = function(id) {
+            if(confirm("Really delete this record?")) {
+                angular.forEach(patients, function (record, key) {
+                    if (record.id === id) {
+                        patients[key].deleted = 1;
+                    }
+                });
+                localStorage.setItem('patients', angular.toJson(patients));
+            }
+        };
+        vm.checkDeleted = function(record) {
+            return (record.deleted === 1);
         }
     }
 
@@ -86,7 +99,7 @@
         this.update = function(fieldname, value, id) {
             var records = JSON.parse(localStorage.getItem('patients'));
             angular.forEach(records, function(record, key) {
-                if(record.id == id) {
+                if(record.id === id) {
                     records[key][fieldname] = value;
                 }
             });
