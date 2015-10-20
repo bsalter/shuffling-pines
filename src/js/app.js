@@ -72,7 +72,7 @@
             if(confirm("Really delete this record?")) {
                 angular.forEach(patients, function (record, key) {
                     if (record.id === id) {
-                        patients[key].deleted = 1;
+                        patients[key].deleted = 1; // logical delete
                     }
                 });
                 localStorage.setItem('patients', angular.toJson(patients));
