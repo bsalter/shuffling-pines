@@ -10,6 +10,9 @@
         vm.checkTab = function(tabnum) {
             return vm.tab === tabnum;
         };
+        $scope.$on("tabchange", function() {
+            vm.setTab(2);
+        });
     }
 
     function FormController(storageService, $scope) {
@@ -30,6 +33,7 @@
             vm.transportation = "pick up";
             vm.location = "";
             storageService.addPatient(patient_data);
+            $scope.$emit("tabchange",2);
         };
         vm.checkName = function(name) {
             return vm.name === name;
@@ -70,6 +74,7 @@
         };
         vm.delete = function(key) {
             storageService.delete(key);
+            patients = storageService.getPatients(); // needed for reactivity
         };
         vm.checkDeleted = function(record) {
             return (record.deleted === 1);
@@ -83,8 +88,7 @@
             this.patients.push(patient);
             localStorage.setItem('patients',angular.toJson(this.patients));
             // make sure we stored it correctly
-            this.patients = JSON.parse(localStorage.getItem('patients'));
-            console.log(this.patients);
+            console.log(JSON.parse(localStorage.getItem('patients')));
         };
         this.getPatients = function() {
             return this.patients;

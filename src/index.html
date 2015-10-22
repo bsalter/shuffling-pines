@@ -38,11 +38,11 @@
               <form name="vm.form" class="col-md-6 well" ng-submit="vm.submit()">
                 <div class="form-group">
                   <label for="guest-name">Guest Name</label>
-                  <input type="text" ng-model="vm.name" class="form-control" id="guest-name" placeholder="Enter Guest Name">
+                  <input type="text" ng-model="vm.name" class="form-control" id="guest-name" placeholder="Enter Guest Name" required>
                 </div>
                 <div class="form-group">
                   <label for="transition-date">Transition Date</label>
-                  <input type="date" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="Enter Transition Date">
+                  <input type="date" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="Enter Transition Date" required>
                 </div>
                 <div class="radio">
                   <label>
@@ -58,9 +58,10 @@
                 </div>
                 <div class="form-group" ng-show="vm.checkTransportation('pick up')">
                   <label for="location">Location</label>
-                  <textarea class="form-control" ng-model="vm.location" id="location" placeholder="Enter Pick-up Location"></textarea>
+                  <textarea class="form-control" ng-model="vm.location" id="location" placeholder="Enter Pick-up Location" ng-required="vm.checkTransportation('pick up')"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button><br/>
+                <h6><span style="color:red">*</span>All fields are required</h6>
               </form>
 
               <!-- bound display -->
