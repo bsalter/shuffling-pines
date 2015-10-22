@@ -70,10 +70,10 @@
             }
         };
         vm.changeField = function(fieldname, value, key) {
-            storageService.update(fieldname, value, key)
+            storageService.updatePatient(fieldname, value, key);
         };
         vm.delete = function(key) {
-            storageService.delete(key);
+            storageService.deletePatient(key);
             patients = storageService.getPatients(); // needed for reactivity
         };
         vm.checkDeleted = function(record) {
@@ -93,13 +93,13 @@
         this.getPatients = function() {
             return this.patients;
         };
-        this.update = function(fieldname, value, key) {
+        this.updatePatient = function(fieldname, value, key) {
             var records = JSON.parse(localStorage.getItem('patients'));
             records[key][fieldname] = value;
             localStorage.setItem('patients',angular.toJson(records));
             console.log(JSON.parse(localStorage.getItem('patients')));
         };
-        this.delete = function(key) {
+        this.deletePatient = function(key) {
             if(confirm("Really delete this record?")) {
                 this.patients[key].deleted = 1; // logical delete
             }
