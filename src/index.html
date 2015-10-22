@@ -90,34 +90,34 @@
             <div role="tabpanel" class="tab-pane" id="guests" ng-controller="PatientListController as vm">
               <br/>
               <h6>All edits on this page automatically save</h6>
-              <div ng-repeat="patient in vm.getPatients()">
+              <div ng-repeat="(key, patient) in vm.getPatients()">
                 <div ng-hide="vm.checkDeleted(patient)" class="well">
                   <div class="form-group">
-                    <label for="tab2-guest-name-{{patient.id}}">Guest Name</label>
+                    <label for="tab2-guest-name-{{key}}">Guest Name</label>
                     <input type="text" ng-model="patient.name" ng-model-options="{updateOn: 'blur'}"
-                           ng-change="vm.changeField('name',patient.name, patient.id)" class="form-control"
-                           id="tab2-guest-name-{{patient.id}}" placeholder="Enter Guest Name">
+                           ng-change="vm.changeField('name',patient.name, key)" class="form-control"
+                           id="tab2-guest-name-{{key}}" placeholder="Enter Guest Name">
                   </div>
                   <div class="form-group">
-                    <label for="tab2-transition-date-{{patient.id}}">Transition Date</label><br/>
+                    <label for="tab2-transition-date-{{key}}">Transition Date</label><br/>
                     <input type="date" class="form-control" ng-model="patient.date" ng-model-options="{updateOn: 'blur'}"
-                           ng-change="vm.changeField('date',patient.date, patient.id)" id="tab2-transition-date-{{patient.id}}"
+                           ng-change="vm.changeField('date',patient.date, key)" id="tab2-transition-date-{{key}}"
                            placeholder="Enter New Transition Date">
                   </div>
                   <div class="form-group">
-                    <label for="tab2-status-{{patient.id}}">Status:</label>
-                    <select id="tab2-status-{{patient.id}}" ng-model="patient.transportation"
+                    <label for="tab2-status-{{key}}">Status:</label>
+                    <select id="tab2-status-{{key}}" ng-model="patient.transportation"
                             ng-options="value for value in vm.getOptions(patient.transportation)"
-                            ng-change="vm.changeField('transportation',patient.transportation, patient.id)"></select>
+                            ng-change="vm.changeField('transportation',patient.transportation, key)"></select>
                   </div>
                   <div class="form-group" ng-show="vm.checkLocation(patient.transportation)">
-                    <label for="tab2-location-{{patient.id}}">Location</label>
-                    <textarea class="form-control" ng-model="patient.location" id="tab2-location-{{patient.id}}"
+                    <label for="tab2-location-{{key}}">Location</label>
+                    <textarea class="form-control" ng-model="patient.location" id="tab2-location-{{key}}"
                               ng-model-options="{updateOn: 'blur'}"
-                              ng-change="vm.changeField('location',patient.location, patient.id)"
+                              ng-change="vm.changeField('location',patient.location, key)"
                               placeholder="Enter Pick-up Location"></textarea>
                   </div>
-                  <button id="delete" class="btn btn-danger" ng-click="vm.delete(patient.id)">Delete</button>
+                  <button id="delete" class="btn btn-danger" ng-click="vm.delete(key)">Delete</button>
                 </div>
               </div>
             </div>

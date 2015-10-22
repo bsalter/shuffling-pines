@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('shuffling', []);
 
-    function TabController() {
+    function TabController($scope) {
         var vm = this;
         vm.tab = 1;
         vm.setTab = function(tabnum) {
@@ -12,7 +12,7 @@
         };
     }
 
-    function FormController(storageService) {
+    function FormController(storageService, $scope) {
         var vm = this;
         vm.transportation = 'pick up';
         var patients = storageService.getPatients();
@@ -65,18 +65,11 @@
                 return ["arrived","pick up"];
             }
         };
-        vm.changeField = function(fieldname, value, id) {
-            storageService.update(fieldname, value, id)
+        vm.changeField = function(fieldname, value, key) {
+            storageService.update(fieldname, value, key)
         };
-        vm.delete = function(id) {
-            if(confirm("Really delete this record?")) {
-                angular.forEach(patients, function (record, key) {
-                    if (record.id === id) {
-                        patients[key].deleted = 1; // logical delete
-                    }
-                });
-                localStorage.setItem('patients', angular.toJson(patients));
-            }
+        vm.delete = function(key) {
+            storageService.delete(key);
         };
         vm.checkDeleted = function(record) {
             return (record.deleted === 1);
@@ -96,18 +89,18 @@
         this.getPatients = function() {
             return this.patients;
         };
-        this.update = function(fieldname, value, id) {
+        this.update = function(fieldname, value, key) {
             var records = JSON.parse(localStorage.getItem('patients'));
-            angular.forEach(records, function(record, key) {
-                if(record.id === id) {
-                    records[key][fieldname] = value;
-                }
-            });
+            records[key][fieldname] = value;
             localStorage.setItem('patients',angular.toJson(records));
             console.log(JSON.parse(localStorage.getItem('patients')));
         };
-        this.delete = function(id) {
-
+        this.delete = function(key) {
+            if(confirm("Really delete this record?")) {
+                this.patients[key].deleted = 1; // logical delete
+            }
+            localStorage.setItem('patients', angular.toJson(this.patients));
+            console.log(JSON.parse(localStorage.getItem('patients')));
         };
         if(this.patients.length == 0) { // initialize with example data
             console.log("Begin initialization");
@@ -115,31 +108,28 @@
                 "name":"Frank",
                 "date":new Date("2014-12-31T05:00:00.000Z"),
                 "transportation":"drop off",
-                "location":"",
-                "id":"1"
+                "location":""
             };
             this.addPatient(data);
             data = {
                 "name":"Samantha",
                 "date":new Date("2015-10-15T05:00:00.000Z"),
                 "transportation":"pick up",
-                "location":"100 Main St., Cambridge, MA 02140",
-                "id":"2"
+                "location":"100 Main St., Cambridge, MA 02140"
             };
             this.addPatient(data);
             data = {
                 "name":"Howard",
                 "date":new Date("2015-02-14T05:00:00.000Z"),
                 "transportation":"drop off",
-                "location":"",
-                "id":"3"
+                "location":""
             };
             this.addPatient(data);
         }
         return this;
     }
-    app.controller('FormController', ['Storage', FormController]);
-    app.controller('TabController', [TabController]);
+    app.controller('TabController', ['$scope', TabController]);
+    app.controller('FormController', ['Storage', '$scope', FormController]);
     app.controller('PatientListController', ['Storage', PatientListController]);
     app.factory('Storage', Storage);
 })();
