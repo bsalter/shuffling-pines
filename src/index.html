@@ -7,17 +7,6 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="vendors.js"></script>
     <script src="app.js"></script>
-    <!-- I found this shim online for making input type='date' work in Firefox -->
-    <!-- It is not my own work -->
-    <!-- http://stackoverflow.com/questions/22983013/how-to-get-html-5-input-type-date-working-in-firefox-and-or-ie-10 -->
-    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
-    <!-- polyfiller file to detect and load polyfills -->
-    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
-    <script>
-      webshims.setOptions('waitReady', false);
-      webshims.setOptions('forms-ext', {types: 'date'});
-      webshims.polyfill('forms forms-ext');
-    </script>
   </head>
 
   <body ng-controller="TabController as vm">
