@@ -66,19 +66,19 @@
 
               <!-- bound display -->
               <div class="col-md-6 well">
-                <div ng-hide="vm.checkName(null)" class="form-group">
+                <div class="form-group">
                   <label>Name: </label>
                   {{vm.name}}
                 </div>
-                <div ng-hide="vm.checkDate(null)" class="form-group">
+                <div class="form-group">
                   <label>Transition Date: </label>
                   {{vm.transition_date | date:'MM/dd/yyyy'}}
                 </div>
-                <div ng-hide="vm.checkTransportation(null)" class="form-group">
+                <div class="form-group">
                   <label>Status: </label>
                   {{vm.transportation}}
                 </div>
-                <div ng-hide="vm.checkLocation(null)" class="form-group">
+                <div ng-hide="vm.checkTransportation('drop off')" class="form-group">
                   <label>Pickup Location: </label>
                   {{vm.location}}
                 </div>

@@ -18,15 +18,12 @@
     function FormController(storageService, $scope) {
         var vm = this;
         vm.transportation = 'pick up';
-        var patients = storageService.getPatients();
-        var patients_length = patients.length;
         vm.submit = function () {
             var patient_data = {
                 "name": vm.name,
                 "date": vm.transition_date,
                 "transportation": vm.transportation,
-                "location": vm.location || "",
-                "id": patients_length + 1
+                "location": vm.location || ""
             };
             vm.name = "";
             vm.transition_date = "";
@@ -46,7 +43,7 @@
         };
         vm.checkLocation = function(location) {
             return vm.location === location;
-        }
+        };
     }
 
     function PatientListController(storageService) {
@@ -78,7 +75,7 @@
         };
         vm.checkDeleted = function(record) {
             return (record.deleted === 1);
-        }
+        };
     }
 
     function Storage() {
@@ -130,10 +127,9 @@
             };
             this.addPatient(data);
         }
-        return this;
     }
     app.controller('TabController', ['$scope', TabController]);
     app.controller('FormController', ['Storage', '$scope', FormController]);
     app.controller('PatientListController', ['Storage', PatientListController]);
-    app.factory('Storage', Storage);
+    app.service('Storage', Storage);
 })();
