@@ -173,7 +173,7 @@ describe('Storage', function() {
         expect(patients[1].name).toBe('Austin');
     });
     it('sets a deleted flag on a record when deletePatient is called', function() {
-        storageService.deletePatient(1, true);
+        storageService.deletePatient(1);
         var patients = storageService.getPatients();
         expect(patients[1].deleted).toBe(1);
     });
