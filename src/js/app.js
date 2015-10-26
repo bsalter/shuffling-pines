@@ -49,10 +49,6 @@
     function PatientListController(storageService) {
         var vm = this;
         var patients = storageService.getPatients();
-        // Angular's date input requires a Date object
-        angular.forEach(patients, function(patient, key) {
-            patients[key].date = new Date(patient.date);
-        });
         vm.getPatients = function() {
             return patients;
         };
@@ -106,21 +102,21 @@
             console.log("Begin initialization");
             var data = {
                 "name":"Frank",
-                "date":new Date("2014-12-31T05:00:00.000Z"),
+                "date":"2014-12-31",
                 "transportation":"drop off",
                 "location":""
             };
             this.addPatient(data);
             data = {
                 "name":"Samantha",
-                "date":new Date("2015-10-15T05:00:00.000Z"),
+                "date":"2015-10-15",
                 "transportation":"pick up",
                 "location":"100 Main St., Cambridge, MA 02140"
             };
             this.addPatient(data);
             data = {
                 "name":"Howard",
-                "date":new Date("2015-02-14T05:00:00.000Z"),
+                "date":"2015-02-14",
                 "transportation":"drop off",
                 "location":""
             };

@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                   <label for="transition-date">Transition Date</label>
-                  <input type="date" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="Enter Transition Date" required>
+                  <input type="text" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="Enter Transition Date" required>
                 </div>
                 <div class="radio">
                   <label>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group">
                   <label>Transition Date: </label>
-                  {{vm.transition_date | date:'MM/dd/yyyy'}}
+                  {{vm.transition_date}}
                 </div>
                 <div class="form-group">
                   <label>Status: </label>
@@ -90,7 +90,7 @@
                   </div>
                   <div class="form-group">
                     <label for="tab2-transition-date-{{key}}">Transition Date</label><br/>
-                    <input type="date" class="form-control" ng-model="patient.date" ng-model-options="{updateOn: 'blur'}"
+                    <input type="text" class="form-control" ng-model="patient.date" ng-model-options="{updateOn: 'blur'}"
                            ng-change="vm.changeField('date',patient.date, key)" id="tab2-transition-date-{{key}}"
                            placeholder="Enter New Transition Date">
                   </div>

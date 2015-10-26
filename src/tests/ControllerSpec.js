@@ -101,9 +101,9 @@ describe('PatientListController', function() {
         expect(typeof patients).toBe('object');
         expect(patients.length).toBe(3);
         var testobj = [
-            Object({ name: 'Frank', date: new Date('2014-12-31T05:00:00.000Z'), transportation: 'drop off', location: '' }),
-            Object({ name: 'Samantha', date: new Date('2015-10-15T05:00:00.000Z'), transportation: 'pick up', location: '100 Main St., Cambridge, MA 02140' }),
-            Object({ name: 'Howard', date: new Date('2015-02-14T05:00:00.000Z'), transportation: 'drop off', location: '' }) ];
+            Object({ name: 'Frank', date:"2014-12-31", transportation: 'drop off', location: '' }),
+            Object({ name: 'Samantha', date: "2015-10-15", transportation: 'pick up', location: '100 Main St., Cambridge, MA 02140' }),
+            Object({ name: 'Howard', date: "2015-02-14", transportation: 'drop off', location: '' }) ];
         expect(angular.toJson(patients)).toBe(angular.toJson(testobj));
     });
     it('returns a comparison against the string "pick up" when checkLocation is called', function() {
@@ -153,9 +153,9 @@ describe('Storage', function() {
         expect(typeof patients).toBe('object');
         expect(patients.length).toBe(3);
         var testobj = [
-            Object({ name: 'Frank', date: new Date('2014-12-31T05:00:00.000Z'), transportation: 'drop off', location: '' }),
-            Object({ name: 'Samantha', date: new Date('2015-10-15T05:00:00.000Z'), transportation: 'pick up', location: '100 Main St., Cambridge, MA 02140' }),
-            Object({ name: 'Howard', date: new Date('2015-02-14T05:00:00.000Z'), transportation: 'drop off', location: '' }) ];
+            Object({ name: 'Frank', date: "2014-12-31", transportation: 'drop off', location: '' }),
+            Object({ name: 'Samantha', date: "2015-10-15", transportation: 'pick up', location: '100 Main St., Cambridge, MA 02140' }),
+            Object({ name: 'Howard', date: "2015-02-14", transportation: 'drop off', location: '' }) ];
         expect(angular.toJson(patients)).toBe(angular.toJson(testobj));
     });
     it('adds a patient record to localStorage when addPatient is called', function() {
