@@ -30,7 +30,7 @@ describe('FormController', function() {
         expect(formController.checkLocation('My house')).toBeTruthy();
         expect(formController.checkLocation('Other house')).toBeFalsy();
     });
-    it('Calls storage service add patient method, then clears scope variables (except transportation), when submit function is called', function() {
+    it('Calls storage service add patient method, emits a tab change message, then clears scope variables (except transportation), when submit function is called', function() {
         spyOn(storageService,'addPatient');
         formController.name = "Harvey";
         formController.transition_date = "10/15/2015";
@@ -42,6 +42,7 @@ describe('FormController', function() {
         expect(formController.transportation).toBe("pick up");
         expect(formController.location).toBe("");
         expect(storageService.addPatient).toHaveBeenCalled();
+        expect(scope.$emit).toHaveBeenCalledWith("tabchange",2);
     });
 });
 
