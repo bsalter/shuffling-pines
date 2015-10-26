@@ -60,7 +60,7 @@
             return (transportation === "pick up");
         };
         vm.getOptions = function(current_transportation) {
-            if(current_transportation == "pick up" || current_transportation == "drop off") {
+            if(current_transportation === "pick up" || current_transportation === "drop off") {
                 return [current_transportation,"arrived"];
             } else {
                 return ["arrived","pick up"];
