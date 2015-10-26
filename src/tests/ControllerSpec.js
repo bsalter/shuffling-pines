@@ -126,9 +126,11 @@ describe('PatientListController', function() {
         patientListController.changeField("name","John",1);
         expect(storageService.updatePatient).toHaveBeenCalledWith("name","John",1);
     });
-    it('calls the Storage service delete function when delete is called', function() {
+    it('calls the Storage service delete function when delete is called, and calls confirm', function() {
+        spyOn(window,'confirm');
         spyOn(storageService,"deletePatient");
-        patientListController.delete(1);
+        patientListController.delete(1, true);
+        expect(window.confirm).toHaveBeenCalledWith('Really delete this record?');
         expect(storageService.deletePatient).toHaveBeenCalledWith(1);
     });
     it('returns a comparison against the deleted flag on a record, when checkDeleted is called', function() {
@@ -170,10 +172,8 @@ describe('Storage', function() {
         var patients = storageService.getPatients();
         expect(patients[1].name).toBe('Austin');
     });
-    it('sets a deleted flag on a record when deletePatient is called, and calls window.confirm', function() {
-        spyOn(window,'confirm');
+    it('sets a deleted flag on a record when deletePatient is called', function() {
         storageService.deletePatient(1, true);
-        expect(window.confirm).toHaveBeenCalledWith('Really delete this record?');
         var patients = storageService.getPatients();
         expect(patients[1].deleted).toBe(1);
     });

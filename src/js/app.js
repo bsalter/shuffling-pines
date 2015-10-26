@@ -15,66 +15,71 @@
         });
     }
 
-    function FormController(storageService, $scope) {
+    function FormController(storageService, $scope) { // controller to manage form behavior
         var vm = this;
         vm.transportation = 'pick up';
-        vm.submit = function () {
-            var patient_data = {
+        vm.submit = function () { // submission function
+            var patient_data = { // set up patient data
                 "name": vm.name,
                 "date": vm.transition_date,
                 "transportation": vm.transportation,
                 "location": vm.location || ""
             };
+            // clear form
             vm.name = "";
             vm.transition_date = "";
             vm.transportation = "pick up";
             vm.location = "";
+            // use service to add patient
             storageService.addPatient(patient_data);
+            // change tab to '2'
             $scope.$emit("tabchange",2);
         };
-        vm.checkName = function(name) {
+        vm.checkName = function(name) { // name comparison function
             return vm.name === name;
         };
-        vm.checkDate = function(date) {
+        vm.checkDate = function(date) { // transition date comparison function
             return vm.transition_date === date;
         };
-        vm.checkTransportation = function(transportation) {
+        vm.checkTransportation = function(transportation) { // transportation comparison function
             return vm.transportation === transportation;
         };
-        vm.checkLocation = function(location) {
+        vm.checkLocation = function(location) { // location comparison function
             return vm.location === location;
         };
     }
 
-    function PatientListController(storageService) {
+    function PatientListController(storageService) { // controller to manage patient list behavior
         var vm = this;
-        var patients = storageService.getPatients();
-        vm.getPatients = function() {
+        var patients = storageService.getPatients(); // initialize patients list using service
+        vm.getPatients = function() { // make patients list accessible to view
             return patients;
         };
-        vm.checkLocation = function(transportation) {
+        vm.checkLocation = function(transportation) { // check if current transportation is "pick up", used to determine whether to display location
             return (transportation === "pick up");
         };
-        vm.getOptions = function(current_transportation) {
+        vm.getOptions = function(current_transportation) { // get options list for select
             if(current_transportation === "pick up" || current_transportation === "drop off") {
                 return [current_transportation,"arrived"];
             } else {
                 return ["arrived","pick up"];
             }
         };
-        vm.changeField = function(fieldname, value, key) {
+        vm.changeField = function(fieldname, value, key) { // update patient based on user input
             storageService.updatePatient(fieldname, value, key);
         };
-        vm.delete = function(key) {
-            storageService.deletePatient(key);
+        vm.delete = function(key, ignoreConfirm) { // delete patient based on user input
+            if(confirm("Really delete this record?") || ignoreConfirm) { // ignoreConfirm is for testing
+                storageService.deletePatient(key);
+            }
             patients = storageService.getPatients(); // needed for reactivity
         };
-        vm.checkDeleted = function(record) {
+        vm.checkDeleted = function(record) { // check if record is deleted
             return (record.deleted === 1);
         };
     }
 
-    function Storage() {
+    function Storage() { // localStorage service
         this.patients = JSON.parse(localStorage.getItem('patients')) || [];
         console.log(this.patients);
         this.addPatient = function(patient) {
@@ -91,10 +96,8 @@
             localStorage.setItem('patients',angular.toJson(this.patients));
             console.log(JSON.parse(localStorage.getItem('patients')));
         };
-        this.deletePatient = function(key,ignoreConfirm) {
-            if(confirm("Really delete this record?") || ignoreConfirm) { // ignoreConfirm is for testing
-                this.patients[key].deleted = 1; // logical delete
-            }
+        this.deletePatient = function(key) {
+            this.patients[key].deleted = 1; // logical delete
             localStorage.setItem('patients', angular.toJson(this.patients));
             console.log(JSON.parse(localStorage.getItem('patients')));
         };
