@@ -102,7 +102,7 @@
             localStorage.setItem('patients', angular.toJson(this.patients));
             console.log(JSON.parse(localStorage.getItem('patients')));
         };
-        if(this.patients.length == 0) { // initialize with example data
+        if(this.patients.length === 0) { // initialize with example data
             console.log("Begin initialization");
             var data = {
                 "name":"Frank",
