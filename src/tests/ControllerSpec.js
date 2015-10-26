@@ -111,11 +111,11 @@ describe('PatientListController', function() {
         expect(patientListController.checkLocation("pick up")).toBeTruthy();
         expect(patientListController.checkLocation("drop off")).toBeFalsy();
     });
-    it('returns an array containing "arrived" and "pick up" when getOptions is called and the parameter is not "pick up" or "drop off"', function() {
+    it('returns an options array containing "arrived" and "pick up" when getOptions is called and the parameter is not "pick up" or "drop off"', function() {
         var testarr = ["arrived","pick up"];
         expect(patientListController.getOptions('arrived')).toEqual(testarr);
     });
-    it('returns an array containing the parameter, and "arrived" when getOptions is called and the parameter is either "pick up" or "drop off"', function() {
+    it('returns an options array containing the parameter, and "arrived" when getOptions is called and the parameter is either "pick up" or "drop off"', function() {
         var testarr = ["pick up","arrived"];
         expect(patientListController.getOptions('pick up')).toEqual(testarr);
         testarr = ["drop off","arrived"];

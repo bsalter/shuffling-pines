@@ -11,7 +11,7 @@ The patient management form has live editing - no submit required.
 ## default runs build & test
 
 Fastest way to get it up and going:
-run bower install, then run gulp autorun and point your browser to the url it provides, or run gulp build and
+run npm install and bower install, then run gulp autorun and point your browser to the url it provides, or run gulp build and
 point your browser at the dist/index.html file.
 
 Known issues:
