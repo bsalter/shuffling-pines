@@ -1,17 +1,17 @@
 (function() {
     var app = angular.module('shuffling', []);
 
-    function TabController($scope) {
+    function TabController($scope) { // controller to manage tab changes
         var vm = this;
-        vm.tab = 1;
-        vm.setTab = function(tabnum) {
+        vm.tab = 1; // initialize tab to first tab
+        vm.setTab = function(tabnum) { // function to set tab
             vm.tab = tabnum;
         };
-        vm.checkTab = function(tabnum) {
+        vm.checkTab = function(tabnum) { // function to check with tab is currently set
             return vm.tab === tabnum;
         };
-        $scope.$on("tabchange", function() {
-            vm.setTab(2);
+        $scope.$on("tabchange", function(event, change_to_tab) { // watches for a tabchange emit, changes tab to 2
+            vm.setTab(change_to_tab);
         });
     }
 
