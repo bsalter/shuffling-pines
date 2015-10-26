@@ -91,13 +91,12 @@
             return this.patients;
         };
         this.updatePatient = function(fieldname, value, key) {
-            var records = JSON.parse(localStorage.getItem('patients'));
-            records[key][fieldname] = value;
-            localStorage.setItem('patients',angular.toJson(records));
+            this.patients[key][fieldname] = value;
+            localStorage.setItem('patients',angular.toJson(this.patients));
             console.log(JSON.parse(localStorage.getItem('patients')));
         };
-        this.deletePatient = function(key) {
-            if(confirm("Really delete this record?")) {
+        this.deletePatient = function(key,ignoreConfirm) {
+            if(confirm("Really delete this record?") || ignoreConfirm) { // ignoreConfirm is for testing
                 this.patients[key].deleted = 1; // logical delete
             }
             localStorage.setItem('patients', angular.toJson(this.patients));

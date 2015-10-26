@@ -90,9 +90,13 @@ describe('PatientListController', function() {
     beforeEach(module('shuffling'));
     beforeEach(inject(function($controller, _Storage_) {
         storageService = _Storage_;
+        spyOn(storageService,'getPatients').and.callThrough();
         patientListController = $controller('PatientListController', {storageService:storageService});
     }));
-    it('returns the patient list when getPatients is called', function() {
+    it('initializes with a patient list, by calling getPatients on the Storage service', function() {
+        expect(storageService.getPatients).toHaveBeenCalled();
+    });
+    it('returns a list of patients when getPatients is called', function() {
         var patients = patientListController.getPatients();
         expect(typeof patients).toBe('object');
         expect(patients.length).toBe(3);
@@ -134,9 +138,42 @@ describe('PatientListController', function() {
 });
 
 describe('Storage', function() {
-    var storage;
+    // I'd prefer to test localStorage contents directly, but every attempt I've made to do so results in some very
+    // weird behavior. It seems that the jasmine script runs in a separate context from the PhantomJS browser,
+    // so when I look at localStorage directly in the test script, I'm looking at the wrong one. So, I'm using the
+    // storage service getPatients function for comparisons - I think this is ok because I test getPatients() return
+    // value against an array of objects.
+    var storageService;
     beforeEach(module('shuffling'));
     beforeEach(inject(function($injector) {
-        storage = $injector.get('Storage');
+        storageService = $injector.get('Storage');
     }));
+    it('initializes with three records, and gets the current list of patients when getPatients is called', function() {
+        var patients = storageService.getPatients();
+        expect(typeof patients).toBe('object');
+        expect(patients.length).toBe(3);
+        var testobj = [
+            Object({ name: 'Frank', date: new Date('2014-12-31T05:00:00.000Z'), transportation: 'drop off', location: '' }),
+            Object({ name: 'Samantha', date: new Date('2015-10-15T05:00:00.000Z'), transportation: 'pick up', location: '100 Main St., Cambridge, MA 02140' }),
+            Object({ name: 'Howard', date: new Date('2015-02-14T05:00:00.000Z'), transportation: 'drop off', location: '' }) ];
+        expect(angular.toJson(patients)).toBe(angular.toJson(testobj));
+    });
+    it('adds a patient record to localStorage when addPatient is called', function() {
+        expect(storageService.getPatients().length).toBe(3);
+        var patient = {name: 'John', date: new Date('2013-12-31T05:00:00.000Z'), transportation: 'drop off', location: ''};
+        storageService.addPatient(patient);
+        expect(storageService.getPatients().length).toBe(4);
+    });
+    it('updates a patient record when updatePatient is called', function () {
+        storageService.updatePatient('name','Austin',1);
+        var patients = storageService.getPatients();
+        expect(patients[1].name).toBe('Austin');
+    });
+    it('sets a deleted flag on a record when deletePatient is called, and calls window.confirm', function() {
+        spyOn(window,'confirm');
+        storageService.deletePatient(1, true);
+        expect(window.confirm).toHaveBeenCalledWith('Really delete this record?');
+        var patients = storageService.getPatients();
+        expect(patients[1].deleted).toBe(1);
+    });
 });
