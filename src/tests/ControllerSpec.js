@@ -11,36 +11,36 @@ describe('FormController', function() {
         formController = $controller('FormController', {storageService:storageService, $scope:scope});
     }));
     it('Accurately compares controller scope variable name with name parameter passed into checkName', function() {
-        formController.name = "Harvey";
+        formController.patient.name = "Harvey";
         expect(formController.checkName('Harvey')).toBeTruthy();
         expect(formController.checkName('Larry')).toBeFalsy();
     });
     it('Accurately compares controller scope variable transition_date with date parameter passed into checkDate', function() {
-        formController.transition_date = "10/15/2015";
+        formController.patient.transition_date = "10/15/2015";
         expect(formController.checkDate('10/15/2015')).toBeTruthy();
         expect(formController.checkDate('10/16/2015')).toBeFalsy();
     });
     it('Accurately compares controller scope variable transportation with transportation parameter passed into checkTransportation', function() {
-        formController.transportation = "pick up";
+        formController.patient.transportation = "pick up";
         expect(formController.checkTransportation('pick up')).toBeTruthy();
         expect(formController.checkTransportation('drop off')).toBeFalsy();
     });
     it('Accurately compares controller scope variable location with location parameter passed into checkLocation', function() {
-        formController.location = "My house";
+        formController.patient.location = "My house";
         expect(formController.checkLocation('My house')).toBeTruthy();
         expect(formController.checkLocation('Other house')).toBeFalsy();
     });
     it('Calls storage service add patient method, emits a tab change message, then clears scope variables (except transportation), when submit function is called', function() {
         spyOn(storageService,'addPatient');
-        formController.name = "Harvey";
-        formController.transition_date = "10/15/2015";
-        formController.transportation = "pick up";
-        formController.location = "My house";
+        formController.patient.name = "Harvey";
+        formController.patient.transition_date = "10/15/2015";
+        formController.patient.transportation = "pick up";
+        formController.patient.location = "My house";
         formController.submit();
-        expect(formController.name).toBe("");
-        expect(formController.transition_date).toBe("");
-        expect(formController.transportation).toBe("pick up");
-        expect(formController.location).toBe("");
+        expect(formController.patient.name).toBe("");
+        expect(formController.patient.transition_date).toBe("");
+        expect(formController.patient.transportation).toBe("pick up");
+        expect(formController.patient.location).toBe("");
         expect(storageService.addPatient).toHaveBeenCalled();
         expect(scope.$emit).toHaveBeenCalledWith("tabchange",2);
     });
@@ -56,27 +56,27 @@ describe('TabController', function() {
         tabController = $controller('TabController', {$scope:scope});
     }));
     it('initializes tab to 1', function() {
-        expect(tabController.tab).toBe(1);
+        expect(tabController.tab.currenttab).toBe(1);
         expect(tabController.checkTab(1)).toBeTruthy();
         expect(tabController.checkTab(2)).toBeFalsy();
     });
     it('sets tab to 2 when setTab(2) is called', function() {
         tabController.setTab(2);
-        expect(tabController.tab).toBe(2);
+        expect(tabController.tab.currenttab).toBe(2);
         expect(tabController.checkTab(1)).toBeFalsy();
         expect(tabController.checkTab(2)).toBeTruthy();
     });
     it('sets tab to 1 when setTab(1) is called', function() {
         tabController.setTab(1);
-        expect(tabController.tab).toBe(1);
+        expect(tabController.tab.currenttab).toBe(1);
     });
     it('responds to a tabchange 2 broadcast by setting tab to 2', function() {
         tabController.setTab(1);
-        expect(tabController.tab).toBe(1);
+        expect(tabController.tab.currenttab).toBe(1);
         var childscope = scope.$new();
         childscope.$emit("tabchange",2);
         expect(scope.$on).toHaveBeenCalled();
-        expect(tabController.tab).toBe(2);
+        expect(tabController.tab.currenttab).toBe(2);
     });
     it('returns true when tab is 2 and checkTab(2) is called', function() {
         tabController.setTab(2);
