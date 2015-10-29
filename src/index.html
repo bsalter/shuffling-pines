@@ -27,27 +27,27 @@
               <form name="vm.form" class="col-md-6 well" ng-submit="vm.submit()">
                 <div class="form-group">
                   <label for="guest-name">Guest Name</label>
-                  <input type="text" ng-model="vm.name" class="form-control" id="guest-name" placeholder="Enter Guest Name" required>
+                  <input type="text" ng-model="vm.patient.name" class="form-control" id="guest-name" placeholder="Enter Guest Name" required>
                 </div>
                 <div class="form-group">
                   <label for="transition-date">Transition Date</label>
-                  <input type="text" class="form-control" ng-model="vm.transition_date" id="transition-date" placeholder="Enter Transition Date" required>
+                  <input type="text" class="form-control" ng-model="vm.patient.transition_date" id="transition-date" placeholder="Enter Transition Date" required>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" ng-model="vm.transportation" id="pickup" value="pick up">
+                    <input type="radio" ng-model="vm.patient.transportation" id="pickup" value="pick up">
                     Pick-up
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <input type="radio" ng-model="vm.transportation" id="dropoff" value="drop off">
+                    <input type="radio" ng-model="vm.patient.transportation" id="dropoff" value="drop off">
                     Drop-off
                   </label>
                 </div>
                 <div class="form-group" ng-show="vm.checkTransportation('pick up')">
                   <label for="location">Location</label>
-                  <textarea class="form-control" ng-model="vm.location" id="location" placeholder="Enter Pick-up Location" ng-required="vm.checkTransportation('pick up')"></textarea>
+                  <textarea class="form-control" ng-model="vm.patient.location" id="location" placeholder="Enter Pick-up Location" ng-required="vm.checkTransportation('pick up')"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button><br/>
                 <h6><span style="color:red">*</span> All fields are required</h6>
@@ -57,19 +57,19 @@
               <div class="col-md-6 well">
                 <div class="form-group">
                   <label>Name: </label>
-                  {{vm.name}}
+                  {{vm.patient.name}}
                 </div>
                 <div class="form-group">
                   <label>Transition Date: </label>
-                  {{vm.transition_date}}
+                  {{vm.patient.transition_date}}
                 </div>
                 <div class="form-group">
                   <label>Status: </label>
-                  {{vm.transportation}}
+                  {{vm.patient.transportation}}
                 </div>
                 <div ng-hide="vm.checkTransportation('drop off')" class="form-group">
                   <label>Pickup Location: </label>
-                  {{vm.location}}
+                  {{vm.patient.location}}
                 </div>
               </div>
             </div>
