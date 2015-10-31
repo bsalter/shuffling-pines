@@ -11,11 +11,11 @@ The patient management form has live editing - no submit required.
 ## default runs build & test
 
 Fastest way to get it up and going:
-run npm install and bower install, then run gulp autorun and point your browser to the url it provides, or run gulp build and
-point your browser at the dist/index.html file.
+run npm install and bower install, then run gulp build, then gulp autorun and point your browser to the url it provides, or point your browser at the dist/index.html file.
 
 Known issues:
 input type="date" doesn't work properly in Firefox. After fiddling with it for a while, I decided to just
 use an ordinary text input for the transition date. That does allow a user to enter an invalid date.
+Had a lot of problems testing with localStorage within Jasmine, so I eventually gave up.
 
 
