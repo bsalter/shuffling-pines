@@ -7,7 +7,7 @@ describe('FormController', function() {
     beforeEach(function() {
        module(function($provide) {
           $provide.service('Storage', function() {
-              this.addPatient = function(param) {};
+              this.addPatient = function() {};
           });
        });
     });
@@ -122,8 +122,8 @@ describe('PatientListController', function() {
                 this.getPatients = function () {
                     return this.patients;
                 };
-                this.updatePatient = function(param) {};
-                this.deletePatient = function(param) {};
+                this.updatePatient = function() {};
+                this.deletePatient = function() {};
             });
         });
     });
