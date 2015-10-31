@@ -4,10 +4,17 @@ describe('FormController', function() {
     var storageService;
     localStorage.clear(); // this seems to cause problems when used as a beforeEach
     beforeEach(module('shuffling'));
-    beforeEach(inject(function($controller, $rootScope, _Storage_) {
+    beforeEach(function() {
+       module(function($provide) {
+          $provide.service('Storage', function() {
+              this.addPatient = function(param) {};
+          });
+       });
+    });
+    beforeEach(inject(function($controller, $rootScope, Storage) {
         scope = $rootScope.$new();
         spyOn(scope,'$emit').and.callThrough();
-        storageService = _Storage_;
+        storageService = Storage;
         formController = $controller('FormController', {storageService:storageService, $scope:scope});
     }));
     it('Accurately compares controller scope variable name with name parameter passed into checkName', function() {
@@ -89,8 +96,39 @@ describe('PatientListController', function() {
     var patientListController;
     var storageService;
     beforeEach(module('shuffling'));
-    beforeEach(inject(function($controller, _Storage_) {
-        storageService = _Storage_;
+    beforeEach(function() {
+        module(function ($provide) {
+            $provide.service('Storage', function () {
+                this.patients = [
+                    {
+                        "name": "Frank",
+                        "date": "2014-12-31",
+                        "transportation": "drop off",
+                        "location": ""
+                    },
+                    {
+                        "name": "Samantha",
+                        "date": "2015-10-15",
+                        "transportation": "pick up",
+                        "location": "100 Main St., Cambridge, MA 02140"
+                    },
+                    {
+                        "name": "Howard",
+                        "date": "2015-02-14",
+                        "transportation": "drop off",
+                        "location": ""
+                    }
+                ];
+                this.getPatients = function () {
+                    return this.patients;
+                };
+                this.updatePatient = function(param) {};
+                this.deletePatient = function(param) {};
+            });
+        });
+    });
+    beforeEach(inject(function($controller, Storage) {
+        storageService = Storage;
         spyOn(storageService,'getPatients').and.callThrough();
         patientListController = $controller('PatientListController', {storageService:storageService});
     }));
