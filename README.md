@@ -1,5 +1,3 @@
-# Assignment 2: Shuffling Pines
-# Benjamin Salter
 Shuffling Pines: an app for a vaguely ominous place to send one's loved ones.
 The main page has a patient submission form, then upon submission automatically switches to a patient management form.
 The patient management form has live editing - no submit required.
